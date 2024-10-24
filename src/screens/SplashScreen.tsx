@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Easing, View } from "react-native";
+import { Animated, Easing, StatusBar, View } from "react-native";
 import LottieView from "lottie-react-native";
 
 const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
@@ -24,6 +24,7 @@ export default function SplashScreen({ navigation }: any) {
 
     return (
         <View className="flex-1 bg-Black">
+            <StatusBar translucent backgroundColor={"transparent"} barStyle={"light-content"} />
             <AnimatedLottieView
                 source={require("../assets/lottiefiles/Tickets.json")}
                 progress={animationProgress.current}
