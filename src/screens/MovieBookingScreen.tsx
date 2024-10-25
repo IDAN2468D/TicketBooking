@@ -62,7 +62,7 @@ const MovieBookingScreen = ({ route, navigation }: any) => {
                 <Text className='text-White text-size_24 text-center'>{movieData?.original_title}</Text>
                 <View className='flex-row-reverse gap-space_10 flex-wrap justify-center mb-[14px]'>
                     {movieData?.genres.map((item: any) => (
-                        <View className='border-WhiteRGBA50 border-[1px] py-space_4 px-space_10 rounded-radius_20' key={item.id}>
+                        <View className='border-WhiteRGBA50 border-[1px] py-space_4 px-space_10 rounded-radius_15' key={item.id}>
                             <Text className='font-poppins_regular text-size_10 text-White'>{item.name}</Text>
                         </View>
                     ))}
