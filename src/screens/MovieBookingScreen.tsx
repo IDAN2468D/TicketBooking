@@ -21,7 +21,7 @@ const MovieBookingScreen = ({ route, navigation }: any) => {
                     <AppHeader name="close" header="Movie Details" action={() => navigation.goBack()} />
                 </View>
                 <View className='flex-1 self-center justify-center'>
-                    <ActivityIndicator color={"#FF5524"} size={"large"} />
+                    <ActivityIndicator color={"#FF5524"} size={80} />
                 </View>
             </ScrollView>
         );

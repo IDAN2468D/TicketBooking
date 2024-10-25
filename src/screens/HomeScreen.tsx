@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Dimensions, ActivityIndicator, ScrollView, StatusBar } from 'react-native';
+import { View, Dimensions, ActivityIndicator, ScrollView, StatusBar } from 'react-native';
 import useMoviesData from '../hooks/useMovies';
 import { CategoryHeader, InputHeader, MovieCard, SubMovieCard } from '../components';
 
@@ -43,11 +43,9 @@ const HomeScreen = ({ navigation }: any) => {
                                     <View key={`spacer-${index}`} style={{ width: spacerWidth }} />
                                 );
                             }
-
-                            // Determine the card width based on position
                             const isFirst = index === 0;
                             const isLast = index === nowPlayingMoviesList.length - 1;
-                            const cardWidth = isFirst || isLast ? width * 0.5 : width * 0.7; // Smaller width for first and last
+                            const cardWidth = isFirst || isLast ? width * 0.5 : width * 0.7;
 
                             return (
                                 <View key={item.id}>
