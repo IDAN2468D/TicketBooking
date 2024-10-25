@@ -20,7 +20,7 @@ const reducer = (state: typeof initialState, action: { type: string; payload?: a
     }
 };
 
-export const useAuth = () => {
+export const useAuth = (navigation: any) => { // Accept navigation as a parameter
     const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
@@ -37,5 +37,17 @@ export const useAuth = () => {
         return () => unsubscribe();
     }, []);
 
-    return state;
+    // Function to sign out the user
+    const signOut = async () => {
+        try {
+            await firebase.auth().signOut(); // Sign out from Firebase
+            dispatch({ type: 'CLEAR_USER' }); // Clear user state
+            console.log('User signed out successfully.');
+            navigation.navigate('Login'); // Navigate to the Login screen
+        } catch (error) {
+            console.error('Error signing out: ', error);
+        }
+    };
+
+    return { ...state, signOut }; // Include signOut in return
 };
