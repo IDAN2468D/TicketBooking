@@ -10,7 +10,7 @@ const FavoriteItem = ({ movie, navigation }: any) => {
     return (
         <TouchableOpacity
             style={styles.container}
-            onPress={() => navigation.navigate('MovieDetails', { movieId: movie.id })}
+            onPress={() => { }}
         >
             <Image
                 source={{ uri: baseImagePath('w185', movie.poster_path) }}
