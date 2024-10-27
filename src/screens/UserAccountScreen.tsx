@@ -28,7 +28,13 @@ const UserAccountScreen = ({ navigation }: any) => {
             <View className=' mx-5'>
                 {ButtonText.map((button, index) => (
                     <View key={index} className='justify-between w-full mt-5'>
-                        <ButtonProfile text={button.text} subtext={button.subtext} subtext_2={button.subtext_2} icon={button.icon} onPress={signOut} />
+                        <ButtonProfile
+                            text={button.text}
+                            subtext={button.subtext}
+                            subtext_2={button.subtext_2}
+                            icon={button.icon}
+                            onPress={index === ButtonText.length - 1 ? signOut : undefined}
+                        />
                     </View>
                 ))}
             </View>

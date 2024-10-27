@@ -1,12 +1,12 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen, SearchScreen, TicketScreen, UserAccountScreen } from '../screens';
+import { FavoritesScreen, HomeScreen, SearchScreen, TicketScreen, UserAccountScreen } from '../screens';
 import { TabBarIcon } from '../components';
-import useLogin from '../hooks/useLogin'; // ודא שאתה מייבא את useLogin
+import useLogin from '../hooks/useLogin';
 
 const Tab = createBottomTabNavigator();
 
 function TabNavigator({ navigation }: any) {
-    const { name, photo } = useLogin(navigation); // קבלת name ו- photo מה-hook
+    const { name, photo } = useLogin(navigation);
 
     return (
         <Tab.Navigator
@@ -40,6 +40,16 @@ function TabNavigator({ navigation }: any) {
                     tabBarIcon: ({ color, focused, size }) => (
                         <TabBarIcon icon="ticket" focused={focused} />
                     )
+                }}
+            />
+            <Tab.Screen
+                name="Favorites"
+                component={FavoritesScreen}
+                options={{
+                    tabBarShowLabel: false,
+                    tabBarIcon: ({ focused }) => (
+                        <TabBarIcon icon="favorites" focused={focused} />
+                    ),
                 }}
             />
             <Tab.Screen

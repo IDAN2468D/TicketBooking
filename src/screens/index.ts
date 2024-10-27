@@ -8,6 +8,9 @@ import LoginScreen from './Authentication/LoginScreen';
 import RegisterScreen from './Authentication/RegisterScreen';
 import ForgotPassword from './Authentication/ForgotPassword';
 import SplashScreen from './SplashScreen';
+import FavoritesScreen from './FavoritesScreen';
+import FavoriteCard from '../components/FavorifeCard'
+
 
 export {
     MovieBookingScreen,
@@ -20,4 +23,6 @@ export {
     RegisterScreen,
     ForgotPassword,
     SplashScreen,
+    FavoritesScreen,
+    FavoriteCard
 }
