@@ -10,13 +10,13 @@ const SearchScreen = ({ navigation }: any) => {
 
     return (
         <View className={`flex-1 items-center bg-Black ${width}`}>
-            <StatusBar hidden />
+            <StatusBar translucent backgroundColor={"transparent"} barStyle={"light-content"} />
             <View>
                 <ScrollView contentContainerStyle={{ alignItems: 'center' }} showsHorizontalScrollIndicator={false} >
-                    <View className='flex mx-space_36 my-space_28'>
+                    <View className='mx-space_36 mt-10 mb-2'>
                         <InputHeader searchFunction={searchMoviesFunction} />
                     </View>
-                    {searchList.map((item: any, index: any) => {
+                    {searchList.map((item: any) => {
                         return (
                             <View key={item.id}>
                                 <SubMovieCard

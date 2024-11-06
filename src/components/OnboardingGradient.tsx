@@ -17,8 +17,8 @@ const OnboardingGradient = (props: any) => {
                     end={{ x: 1, y: 1 }}
                 />
                 <View style={styles.textContainer}>
-                    <Text numberOfLines={2} style={styles.title}>{props.title}</Text>
-                    <Text style={styles.subtitle}>{props.subtitle}</Text>
+                    <Text numberOfLines={1} style={styles.title}>{props.title}</Text>
+                    <Text numberOfLines={5} style={styles.subtitle}>{props.subtitle}</Text>
                 </View>
             </ImageBackground>
         </View>

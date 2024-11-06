@@ -3,15 +3,13 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useFavorites } from '../FavoritesContext/FavoritesContext';
 import { baseImagePath } from '../api/apicalls';
 
-
-const FavoriteItem = ({ movie, navigation }: any) => {
+const FavoriteItem = ({ movie }: any) => {
     const { toggleFavorite } = useFavorites();
 
     return (
         <TouchableOpacity
             style={styles.container}
-            onPress={() => { }}
-        >
+            onPress={() => { }}>
             <Image
                 source={{ uri: baseImagePath('w185', movie.poster_path) }}
                 style={styles.image}

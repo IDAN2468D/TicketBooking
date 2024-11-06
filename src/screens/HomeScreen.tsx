@@ -16,9 +16,9 @@ const HomeScreen = ({ navigation }: any) => {
         genres
     } = useMoviesData(navigation);
     return (
-        <ScrollView bounces={false} className='flex flex-1 bg-Black'>
+        <ScrollView bounces={false} className='bg-Black'>
             <StatusBar translucent backgroundColor={"transparent"} barStyle={"light-content"} />
-            <View className='mx-space_36 mt-space_32'>
+            <View className='flex-1 mx-space_36 mt-10'>
                 <InputHeader searchFunction={searchMoviesFunction} />
             </View>
             {loading ? (

@@ -44,6 +44,13 @@ const OnboardingScreen = ({ navigation }: any) => {
             title: renderOnboardingImage(nowPlayingMoviesList?.[3]?.title ?? 'Fallback Title'),
             subtitle: renderOnboardingImage(nowPlayingMoviesList?.[3]?.overview ?? "Fallback SubTitle"),
         },
+        {
+            backgroundColor: '#000000',
+            image: renderOnboardingImage(4),
+            title: renderOnboardingImage(nowPlayingMoviesList?.[4]?.title ?? 'Fallback Title'),
+            subtitle: renderOnboardingImage(nowPlayingMoviesList?.[4]?.overview ?? "Fallback SubTitle"),
+        },
+
     ];
 
     return (
