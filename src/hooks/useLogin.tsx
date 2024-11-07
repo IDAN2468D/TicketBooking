@@ -50,15 +50,31 @@ const reducer = (state: State, action: Action): State => {
     }
 };
 
+const validateEmail = (email: string): boolean => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailPattern.test(email);
+};
+
+const validatePassword = (password: string): boolean => {
+    return password.length >= 6;
+};
+
 function useLogin(navigation: any) {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const handleLogin = async () => {
         dispatch({ type: 'RESET_ERROR_MESSAGE' });
-        if (!state.email || !state.password) {
-            dispatch({ type: 'SET_ERROR_MESSAGE', payload: 'Please enter your email and password.' });
+
+        if (!validateEmail(state.email)) {
+            dispatch({ type: 'SET_ERROR_MESSAGE', payload: 'Please enter a valid email address.' });
             return;
         }
+
+        if (!validatePassword(state.password)) {
+            dispatch({ type: 'SET_ERROR_MESSAGE', payload: 'Password must be at least 6 characters long.' });
+            return;
+        }
+
         console.log('Attempting to login with email:', state.email);
         try {
             await signInWithEmailAndPassword(firebaseAuth, state.email, state.password);

@@ -2,27 +2,59 @@ import { useReducer } from 'react';
 import { auth } from '../api/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
-// Define action types
+const validateEmail = (email: string): string => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email)
+        ? ""
+        : "פורמט האימייל אינו תקין.";
+}
+
+const validatePassword = (password: string): string => {
+    if (password.length < 8) {
+        return "הסיסמה חייבת להיות לפחות 8 תווים.";
+    }
+    if (!/[A-Z]/.test(password)) {
+        return "הסיסמה חייבת לכלול לפחות אות אחת גדולה.";
+    }
+    if (!/[a-z]/.test(password)) {
+        return "הסיסמה חייבת לכלול לפחות אות אחת קטנה.";
+    }
+    if (!/\d/.test(password)) {
+        return "הסיסמה חייבת לכלול לפחות ספרה אחת.";
+    }
+    return "";
+}
+
+interface State {
+    name: string;
+    email: string;
+    password: string;
+    errorMessage: string;
+    showPassword: boolean;
+    successMessage: string;
+    registeredUserName: string;
+}
+
 type ActionType =
     | { type: 'SET_NAME'; payload: string }
     | { type: 'SET_EMAIL'; payload: string }
     | { type: 'SET_PASSWORD'; payload: string }
+    | { type: 'TOGGLE_PASSWORD_VISIBILITY' }
     | { type: 'SET_ERROR_MESSAGE'; payload: string }
     | { type: 'SET_SUCCESS_MESSAGE'; payload: string }
     | { type: 'SET_REGISTERED_USER_NAME'; payload: string };
 
-// Use any type instead of defining the state explicitly
-const initialState: any = {
+const initialState: State = {
     name: '',
     email: '',
     password: '',
+    showPassword: false,
     errorMessage: '',
     successMessage: '',
     registeredUserName: ''
 };
 
-// Reducer function
-const registerReducer = (state: any, action: ActionType): any => {
+const registerReducer = (state: State, action: ActionType): State => {
     switch (action.type) {
         case 'SET_NAME':
             return { ...state, name: action.payload };
@@ -30,6 +62,8 @@ const registerReducer = (state: any, action: ActionType): any => {
             return { ...state, email: action.payload };
         case 'SET_PASSWORD':
             return { ...state, password: action.payload };
+        case 'TOGGLE_PASSWORD_VISIBILITY':
+            return { ...state, showPassword: !state.showPassword };
         case 'SET_ERROR_MESSAGE':
             return { ...state, errorMessage: action.payload };
         case 'SET_SUCCESS_MESSAGE':
@@ -48,20 +82,35 @@ const useRegister = (navigation: any) => {
         dispatch({ type: 'SET_ERROR_MESSAGE', payload: '' });
         dispatch({ type: 'SET_SUCCESS_MESSAGE', payload: '' });
 
-        if (!state.name || !state.email || !state.password) {
-            dispatch({ type: 'SET_ERROR_MESSAGE', payload: 'אנא מלא את כל השדות: שם, כתובת דוא"ל וסיסמה.' });
+        // אימות אימייל וסיסמה
+        const emailError = validateEmail(state.email);
+        const passwordError = validatePassword(state.password);
+
+        if (emailError) {
+            dispatch({ type: 'SET_ERROR_MESSAGE', payload: emailError });
+            return;
+        }
+        if (passwordError) {
+            dispatch({ type: 'SET_ERROR_MESSAGE', payload: passwordError });
+            return;
+        }
+
+        // בדיקה ששדה השם מלא
+        if (!state.name) {
+            dispatch({ type: 'SET_ERROR_MESSAGE', payload: 'אנא מלא את השם שלך.' });
             return;
         }
 
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, state.email, state.password);
             const user = userCredential.user;
-            navigation.navigate("Login");
 
             if (user) {
                 console.log('משתמש מחובר:', user);
                 await updateProfile(user, { displayName: state.name });
                 dispatch({ type: 'SET_SUCCESS_MESSAGE', payload: 'הרשמה בוצעה בהצלחה!' });
+                dispatch({ type: 'SET_REGISTERED_USER_NAME', payload: state.name });
+                navigation.navigate("Login");
             } else {
                 console.log('לא נמצא משתמש מחובר לאחר יצירת החשבון.');
             }
@@ -70,15 +119,6 @@ const useRegister = (navigation: any) => {
             console.error('שגיאת הרשמה:', firebaseError);
             dispatch({ type: 'SET_ERROR_MESSAGE', payload: firebaseError.message || 'הרשמה נכשלה. אנא נסה שוב.' });
         }
-
-        const user = auth.currentUser;
-        if (user) {
-            await updateProfile(user, { displayName: state.name });
-            console.log('שם המשתמש המעודכן:', user.displayName);
-            dispatch({ type: 'SET_REGISTERED_USER_NAME', payload: state.name });
-        } else {
-            console.log('משתמש לא מחובר');
-        }
     };
 
     return {
@@ -86,6 +126,7 @@ const useRegister = (navigation: any) => {
         setName: (name: string) => dispatch({ type: 'SET_NAME', payload: name }),
         setEmail: (email: string) => dispatch({ type: 'SET_EMAIL', payload: email }),
         setPassword: (password: string) => dispatch({ type: 'SET_PASSWORD', payload: password }),
+        togglePasswordVisibility: () => dispatch({ type: 'TOGGLE_PASSWORD_VISIBILITY' }),
         handleRegister
     };
 };

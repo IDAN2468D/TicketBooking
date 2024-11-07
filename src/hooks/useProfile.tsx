@@ -35,16 +35,21 @@ export const useAuth = (navigation: any) => {
         });
 
         return () => unsubscribe();
-    }, []);
+    }, [navigation]); // Add navigation as a dependency
 
     const signOut = async () => {
-        try {
-            await firebase.auth().signOut();
-            dispatch({ type: 'CLEAR_USER' });
-            console.log('User signed out successfully.');
-            navigation.navigate('Login');
-        } catch (error) {
-            console.error('Error signing out: ', error);
+        const currentUser = firebase.auth().currentUser; // Check if there's a current user
+        if (currentUser) {
+            try {
+                await firebase.auth().signOut();
+                dispatch({ type: 'CLEAR_USER' });
+                console.log('User signed out successfully.');
+                navigation.navigate('Login'); // Navigate to login screen after sign out
+            } catch (error) {
+                console.error('Error signing out: ', error);
+            }
+        } else {
+            console.log('No user is signed in, cannot sign out.');
         }
     };
 

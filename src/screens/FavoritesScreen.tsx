@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { Text, View, StyleSheet, ScrollView, StatusBar } from 'react-native';
+import { Text, View, ScrollView, StatusBar } from 'react-native';
 import { useFavorites } from '../FavoritesContext/FavoritesContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import FavoriteItem from '../components/FavorifeCard'; // Corrected the import statement
+import FavoriteItem from '../components/FavorifeCard';
 
 export interface FavoriteMovie {
     id: number;
@@ -15,7 +15,7 @@ const FavoritesScreen = ({ navigation }: any) => {
     const { favorites, setFavorites } = useFavorites();
 
     useEffect(() => {
-        const getFavorites = async () => {
+        const loadFavorites = async () => {
             try {
                 const storedFavorites = await AsyncStorage.getItem('@favorites');
                 if (storedFavorites) {
@@ -26,20 +26,20 @@ const FavoritesScreen = ({ navigation }: any) => {
             }
         };
 
-        const unsubscribe = navigation.addListener('focus', getFavorites);
+        const unsubscribe = navigation.addListener('focus', loadFavorites);
 
         return unsubscribe;
     }, [navigation]);
 
     return (
-        <View style={styles.container}>
+        <View className="flex-1 bg-black">
             <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
-            <View className="mx-[30px] mt-10">
+            <View className="mx-8 mt-10">
                 {favorites.length === 0 ? (
-                    <Text className="text-White text-center">No favorite movies yet.</Text>
+                    <Text className="text-white text-center">No favorite movies yet.</Text>
                 ) : (
                     <ScrollView showsHorizontalScrollIndicator={false}>
-                        <Text className="text-White text-center text-2xl font-bold">Favorite Movies</Text>
+                        <Text className="text-white text-center text-2xl font-bold">Favorite Movies</Text>
                         {favorites.map((favoriteMovie) => (
                             <FavoriteItem
                                 key={favoriteMovie.id}
@@ -53,12 +53,5 @@ const FavoritesScreen = ({ navigation }: any) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000',
-    },
-});
 
 export default FavoritesScreen;
