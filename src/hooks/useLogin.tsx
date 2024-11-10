@@ -131,6 +131,8 @@ function useLogin(navigation: any) {
         errorMessage: state.errorMessage,
         showPassword: state.showPassword,
         handleLogin,
+        validateEmail,
+        validatePassword,
         signInWithGoogle,
         setEmail: (email: string) => dispatch({ type: 'SET_EMAIL', payload: email }),
         setPassword: (password: string) => dispatch({ type: 'SET_PASSWORD', payload: password }),

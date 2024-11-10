@@ -6,21 +6,21 @@ const validateEmail = (email: string): string => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email)
         ? ""
-        : "פורמט האימייל אינו תקין.";
+        : "The email format is incorrect.";
 }
 
 const validatePassword = (password: string): string => {
     if (password.length < 8) {
-        return "הסיסמה חייבת להיות לפחות 8 תווים.";
+        return "The password must be at least 8 characters long.";
     }
     if (!/[A-Z]/.test(password)) {
-        return "הסיסמה חייבת לכלול לפחות אות אחת גדולה.";
+        return "The password must contain at least one uppercase letter.";
     }
     if (!/[a-z]/.test(password)) {
-        return "הסיסמה חייבת לכלול לפחות אות אחת קטנה.";
+        return "The password must contain at least one lowercase letter.";
     }
     if (!/\d/.test(password)) {
-        return "הסיסמה חייבת לכלול לפחות ספרה אחת.";
+        return "The password must contain at least one digit.";
     }
     return "";
 }
@@ -82,7 +82,6 @@ const useRegister = (navigation: any) => {
         dispatch({ type: 'SET_ERROR_MESSAGE', payload: '' });
         dispatch({ type: 'SET_SUCCESS_MESSAGE', payload: '' });
 
-        // אימות אימייל וסיסמה
         const emailError = validateEmail(state.email);
         const passwordError = validatePassword(state.password);
 
@@ -95,9 +94,8 @@ const useRegister = (navigation: any) => {
             return;
         }
 
-        // בדיקה ששדה השם מלא
         if (!state.name) {
-            dispatch({ type: 'SET_ERROR_MESSAGE', payload: 'אנא מלא את השם שלך.' });
+            dispatch({ type: 'SET_ERROR_MESSAGE', payload: 'Please fill in your name.' });
             return;
         }
 
@@ -106,18 +104,18 @@ const useRegister = (navigation: any) => {
             const user = userCredential.user;
 
             if (user) {
-                console.log('משתמש מחובר:', user);
+                console.log('User logged in:', user);
                 await updateProfile(user, { displayName: state.name });
-                dispatch({ type: 'SET_SUCCESS_MESSAGE', payload: 'הרשמה בוצעה בהצלחה!' });
+                dispatch({ type: 'SET_SUCCESS_MESSAGE', payload: 'Registration successfully completed!' });
                 dispatch({ type: 'SET_REGISTERED_USER_NAME', payload: state.name });
                 navigation.navigate("Login");
             } else {
-                console.log('לא נמצא משתמש מחובר לאחר יצירת החשבון.');
+                console.log('No user found logged in after creating the account.');
             }
         } catch (error) {
             const firebaseError = error as { code?: string; message?: string };
             console.error('שגיאת הרשמה:', firebaseError);
-            dispatch({ type: 'SET_ERROR_MESSAGE', payload: firebaseError.message || 'הרשמה נכשלה. אנא נסה שוב.' });
+            dispatch({ type: 'SET_ERROR_MESSAGE', payload: firebaseError.message || 'Registration failed. Please try again.' });
         }
     };
 
@@ -127,7 +125,9 @@ const useRegister = (navigation: any) => {
         setEmail: (email: string) => dispatch({ type: 'SET_EMAIL', payload: email }),
         setPassword: (password: string) => dispatch({ type: 'SET_PASSWORD', payload: password }),
         togglePasswordVisibility: () => dispatch({ type: 'TOGGLE_PASSWORD_VISIBILITY' }),
-        handleRegister
+        handleRegister,
+        validateEmail,
+        validatePassword
     };
 };
 

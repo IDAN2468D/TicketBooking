@@ -1,50 +1,59 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { firebase } from '@react-native-firebase/auth';
 
 const initialState = {
     userName: null,
     userPhoto: null,
+    isAuthChecked: false,
 };
 
 const reducer = (state: typeof initialState, action: { type: string; payload?: any }) => {
     switch (action.type) {
         case 'SET_USER':
             return {
+                ...state,
                 userName: action.payload.displayName,
                 userPhoto: action.payload.photoURL,
+                isAuthChecked: true,
             };
         case 'CLEAR_USER':
-            return initialState;
+            return {
+                ...state,
+                userName: null,
+                userPhoto: null,
+                isAuthChecked: true,
+            };
         default:
             return state;
     }
 };
 
 export const useAuth = (navigation: any) => {
+    const [modalVisible, setModalVisible] = useState(false);
     const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                console.log('User email: ', user.email);
                 dispatch({ type: 'SET_USER', payload: user });
             } else {
-                console.log('No user is signed in.');
                 dispatch({ type: 'CLEAR_USER' });
             }
         });
 
         return () => unsubscribe();
-    }, [navigation]); // Add navigation as a dependency
+    }, []);
 
     const signOut = async () => {
-        const currentUser = firebase.auth().currentUser; // Check if there's a current user
-        if (currentUser) {
+        if (state.isAuthChecked && firebase.auth().currentUser) {
             try {
                 await firebase.auth().signOut();
                 dispatch({ type: 'CLEAR_USER' });
                 console.log('User signed out successfully.');
-                navigation.navigate('Login'); // Navigate to login screen after sign out
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                });
             } catch (error) {
                 console.error('Error signing out: ', error);
             }
@@ -53,5 +62,22 @@ export const useAuth = (navigation: any) => {
         }
     };
 
-    return { ...state, signOut };
+    const handleSignOut = async () => {
+        await signOut();
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+        });
+    };
+
+    const confirmSignOut = () => {
+        setModalVisible(true);
+    };
+
+    // סגירת המודל
+    const closeModal = () => {
+        setModalVisible(false);
+    };
+
+    return { ...state, handleSignOut, confirmSignOut, closeModal, modalVisible };
 };

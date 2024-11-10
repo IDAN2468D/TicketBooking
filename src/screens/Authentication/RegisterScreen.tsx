@@ -14,12 +14,17 @@ const RegisterScreen = ({ navigation }: any) => {
         name,
         errorMessage,
         showPassword,
+        validateEmail,
+        validatePassword,
         togglePasswordVisibility
     } = useRegister(navigation);
 
+    const EmailInput = `border rounded-lg flex-row items-center py-1 px-2 ${email ? (validateEmail(email) ? "border-red-600" : "border-green-600") : "border-gray-300"}`;
+    const PasswordInput = `border rounded-lg flex-row items-center py-1 px-2 ${password ? (validatePassword(password) ? "border-red-600" : "border-green-700") : "border-gray-300"}`;
+
     return (
         <View className="flex-1 bg-white px-5">
-            <StatusBar barStyle="dark-content" />
+            <StatusBar barStyle="dark-content" backgroundColor={"white"} />
             <View className="items-center mt-10 mb-5">
                 <Icon name="ticket" size={32} color="#FF5524" />
                 <Text className="text-2xl font-bold mt-2">Ticket Booking</Text>
@@ -45,7 +50,14 @@ const RegisterScreen = ({ navigation }: any) => {
                 </View>
                 {/* Email Input */}
                 <View className="mb-5 relative">
-                    <View className="border border-gray-300 rounded-lg flex-row items-center py-1 px-2">
+                    <View className={EmailInput}>
+                        {email && validateEmail(email) !== null && (
+                            <Icon
+                                name={validateEmail(email) ? "close" : "check"}
+                                size={20}
+                                color={validateEmail(email) ? "red" : "green"}
+                            />
+                        )}
                         <TextInput
                             className="flex-1 ml-2 text-base"
                             placeholder="Enter your email"
@@ -59,7 +71,7 @@ const RegisterScreen = ({ navigation }: any) => {
                 </View>
                 {/* Password Input */}
                 <View className="mb-5 relative">
-                    <View className="border border-gray-300 rounded-lg flex-row items-center py-1 px-2">
+                    <View className={PasswordInput}>
                         <TouchableOpacity onPress={togglePasswordVisibility}>
                             <Icon name={showPassword ? 'eye' : 'eye-off'} size={20} color="#666" />
                         </TouchableOpacity>
@@ -86,11 +98,14 @@ const RegisterScreen = ({ navigation }: any) => {
                     <Text className="ml-2 text-lg">Sign up with Google</Text>
                 </TouchableOpacity>
                 {/* Sign In Link */}
-                <View className="flex-row justify-center mt-5">
-                    <Text className="text-base text-gray-600">Already have an account?{" "}
-                        <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate("Login")}>
-                            <Text className="text-orange-600 font-bold">Sign In</Text>
-                        </TouchableOpacity>
+                <View className="flex-row justify-center mt-1">
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate("Login")}>
+                        <Text className="text-base text-orange-600 font-bold">
+                            Sign In
+                        </Text>
+                    </TouchableOpacity>
+                    <Text className="text-base text-gray-600">
+                        Don't have an account?{" "}
                     </Text>
                 </View>
             </View>
