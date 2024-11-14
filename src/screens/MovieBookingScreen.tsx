@@ -15,6 +15,7 @@ import { AppHeader, CastData, CategoryHeader, ButtonText } from '../components';
 import { baseImagePath } from '../api/apicalls';
 import CustomIcon from '../components/CustomIcon';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { useFavorites } from '../hooks/useFavorites';
 
 // Assuming this is in a shared types file
@@ -81,9 +82,14 @@ const MovieBookingScreen: React.FC<MovieBookingScreenProps> = ({ route, navigati
                     source={{ uri: backdropPath }}
                 >
                     <LinearGradient style={{ height: "100%" }} colors={["rgba(0,0,0,0.1)", "#000000"]}>
-                        <View className='mx-[40px] my-14'>
+                        <View className='mx-[50px] my-14'>
                             <View className='flex-row-reverse items-center justify-center'>
                                 <AppHeader name="close" header="" action={() => navigation.goBack()} />
+                                <TouchableOpacity onPress={() => { navigation.navigate("Trailer", { movieData }) }}>
+                                    <View className='pl-3'>
+                                        <MaterialCommunityIcons name='movie-open-play' color={"white"} size={25} />
+                                    </View>
+                                </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => toggleFavorite(movieData)}
                                     accessible={true}

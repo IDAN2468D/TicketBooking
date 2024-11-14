@@ -1,4 +1,4 @@
-const ApiKey = "01495650fdf4285e1dd890fb6717a935"
+export const ApiKey = "01495650fdf4285e1dd890fb6717a935"
 
 export const baseImagePath = (size: string, path: string) => {
     return `https://image.tmdb.org/t/p/${size}${path}`;
