@@ -10,7 +10,8 @@ import RadioSeat from './RadioSeat';
 import PriceTotalButton from './PriceTotalButton';
 import ButtonProfile from './ButtonProfile';
 import OnboardingGradient from './OnboardingGradient';
-import SignOutModal from '../components/SignOutModal'
+import SignOutModal from '../components/SignOutModal';
+import PersonDetailItem from "./PersonDetailItem";
 
 export {
     TabBarIcon,
@@ -25,5 +26,6 @@ export {
     PriceTotalButton,
     ButtonProfile,
     OnboardingGradient,
+    PersonDetailItem,
     SignOutModal
 }

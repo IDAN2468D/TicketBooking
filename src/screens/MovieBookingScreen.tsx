@@ -161,6 +161,7 @@ const MovieBookingScreen: React.FC<MovieBookingScreenProps> = ({ route, navigati
                                 imagePath={baseImagePath("w185", item.profile_path)}
                                 title={item.original_name}
                                 subtitle={item.character}
+                                onPress={() => navigation.navigate('CastDetails', { personId: item.id })}
                             />
                         </View>
                     ))}

@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { TouchableOpacity } from 'react-native';
 
 const CastData = (props: any) => {
     const classNames = ` 
@@ -9,11 +10,13 @@ const CastData = (props: any) => {
 `;
 
     return (
-        <View className={classNames} style={{ maxWidth: props.cardWidth }}>
-            <Image className='aspect-[1920/2880] rounded-[100px]' source={{ uri: props.imagePath }} style={{ width: props.cardWidth }} />
-            <Text className='text-White self-stretch font-poppins_medium text-size_12' numberOfLines={1}> {props.title}</Text>
-            <Text className='text-White self-stretch font-poppins_medium text-size_10' numberOfLines={1}> {props.subtitle}</Text>
-        </View>
+        <TouchableOpacity onPress={props.onPress}>
+            <View className={classNames} style={{ maxWidth: props.cardWidth }}>
+                <Image className='aspect-[1920/2880] rounded-[100px]' source={{ uri: props.imagePath }} style={{ width: props.cardWidth }} />
+                <Text className='text-White self-stretch font-poppins_medium text-size_12' numberOfLines={1}> {props.title}</Text>
+                <Text className='text-White self-stretch font-poppins_medium text-size_10' numberOfLines={1}> {props.subtitle}</Text>
+            </View>
+        </TouchableOpacity>
     )
 }
 

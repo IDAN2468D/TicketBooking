@@ -10,7 +10,8 @@ import ForgotPassword from './Authentication/ForgotPassword';
 import SplashScreen from './SplashScreen';
 import FavoritesScreen from './FavoritesScreen';
 import FavoriteCard from '../components/FavorifeCard';
-import TrailerScreen from './TrailerScreen'
+import TrailerScreen from './TrailerScreen';
+import CastDetailsScreen from './CastDetailsScreen';
 
 export {
     MovieBookingScreen,
@@ -25,5 +26,6 @@ export {
     SplashScreen,
     FavoritesScreen,
     FavoriteCard,
+    CastDetailsScreen,
     TrailerScreen
 }

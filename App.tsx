@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TabNavigator from './src/navigation/TabNavigator';
-import { LoginScreen, MovieBookingScreen, SearchScreen, SeatBookingScreen, RegisterScreen, ForgotPassword, SplashScreen, TrailerScreen } from './src/screens';
+import { LoginScreen, MovieBookingScreen, SearchScreen, SeatBookingScreen, RegisterScreen, ForgotPassword, SplashScreen, TrailerScreen, CastDetailsScreen } from './src/screens';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import { FavoritesProvider } from './src/FavoritesContext/FavoritesContext';
 
@@ -23,6 +23,7 @@ const App = () => {
           <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{ animation: "slide_from_bottom" }} />
           <Stack.Screen name='SplashScreen' component={SplashScreen} options={{ animation: "slide_from_right" }} />
           <Stack.Screen name='Trailer' component={TrailerScreen} options={{ animation: "none" }} />
+          <Stack.Screen name='CastDetails' component={CastDetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </FavoritesProvider>
