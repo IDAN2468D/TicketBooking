@@ -6,6 +6,12 @@ export const baseImagePath = (size: string, path: string) => {
 export const newPlayingMovies: string = `https://api.themoviedb.org/3/movie/now_playing?api_key=${ApiKey}`;
 export const upcomingMovies: string = `https://api.themoviedb.org/3/movie/upcoming?api_key=${ApiKey}`;
 export const popularMovies: string = `https://api.themoviedb.org/3/movie/popular?api_key=${ApiKey}`;
+export const tvAiringToday: string = `https://api.themoviedb.org/3/tv/airing_today?api_key=${ApiKey}`;
+export const OnTheAir: string = `https://api.themoviedb.org/3/tv/on_the_air?api_key=${ApiKey}`;
+export const Popular: string = `https://api.themoviedb.org/3/tv/popular?api_key=${ApiKey}`;
+export const TopRated: string = `https://api.themoviedb.org/3/tv/top_rated?api_key=${ApiKey}`;
+
+
 export const searchMovies = (keyword: string) => {
     return `https://api.themoviedb.org/3/search/movie?api_key=${ApiKey}&query=${keyword}`
 }

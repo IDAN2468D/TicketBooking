@@ -12,6 +12,10 @@ const HomeScreen = ({ navigation }: any) => {
         searchMoviesFunction,
         popularMoviesList,
         upcomingMoviesList,
+        tvAiringTodayList,
+        onTheAirList,
+        popularShowsList,
+        topRatedList,
         loading,
         genres
     } = useMoviesData(navigation);
@@ -28,7 +32,7 @@ const HomeScreen = ({ navigation }: any) => {
             ) : (
                 <View>
                     {/* New Playing Movies List */}
-                    <CategoryHeader title="New Playing" />
+                    <CategoryHeader title="New Playing" className="font-poppins_semibold text-size_20 text-White px-space_36 py-space_20" />
                     <ScrollView
                         snapToInterval={width * 0.7 + 36}
                         bounces={false}
@@ -69,7 +73,7 @@ const HomeScreen = ({ navigation }: any) => {
                         })}
                     </ScrollView>
                     {/* Popular Movies List*/}
-                    <CategoryHeader title="Popular" />
+                    <CategoryHeader title="Popular" className="font-poppins_semibold text-size_20 text-White px-space_36 py-space_20" />
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                         {popularMoviesList.map((item: any, index: any) => {
                             return (
@@ -90,7 +94,7 @@ const HomeScreen = ({ navigation }: any) => {
                         })}
                     </ScrollView>
                     {/* Upcoming Movies List */}
-                    <CategoryHeader title="Upcoming" />
+                    <CategoryHeader title="Upcoming" className="font-poppins_semibold text-size_20 text-White px-space_36 py-space_20" />
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                         {upcomingMoviesList.map((item: any, index: any) => {
                             return (
@@ -104,6 +108,92 @@ const HomeScreen = ({ navigation }: any) => {
                                         isFirst={index == 0 ? true : false}
                                         isLast={index == upcomingMoviesList.length - 1}
                                         title={item.original_title}
+                                        imagePath={baseImagePath("w342", item.poster_path)}
+                                    />
+                                </View>
+                            )
+                        })}
+                    </ScrollView>
+                    {/* Tv Series Lists */}
+                    <CategoryHeader title="Tv Series Lists" className="font-poppins_semibold text-size_20 text-White px-space_36 py-space_20" />
+                    {/* Airing Today */}
+                    <CategoryHeader title="Airing Today" className="font-poppins_semibold text-size_16 text-White px-space_36 pb-space_20" />
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                        {tvAiringTodayList.map((item: any, index: any) => {
+                            return (
+                                <View key={item.id}>
+                                    <SubMovieCard
+                                        shouldMarginatedAtEnd={true}
+                                        cardFunction={() => {
+                                            navigation.push("MovieDetails", { movieid: item.id });
+                                        }}
+                                        cardWidth={width / 3}
+                                        isFirst={index == 0 ? true : false}
+                                        isLast={index == tvAiringTodayList.length - 1}
+                                        title={item.original_name}
+                                        imagePath={baseImagePath("w342", item.poster_path)}
+                                    />
+                                </View>
+                            )
+                        })}
+                    </ScrollView>
+                    {/* On The Air */}
+                    <CategoryHeader title="On The Air" className="font-poppins_semibold text-size_16 text-White px-space_36 py-space_20" />
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                        {onTheAirList.map((item: any, index: any) => {
+                            return (
+                                <View key={item.id}>
+                                    <SubMovieCard
+                                        shouldMarginatedAtEnd={true}
+                                        cardFunction={() => {
+                                            navigation.push("MovieDetails", { movieid: item.id });
+                                        }}
+                                        cardWidth={width / 3}
+                                        isFirst={index == 0 ? true : false}
+                                        isLast={index == onTheAirList.length - 1}
+                                        title={item.original_name}
+                                        imagePath={baseImagePath("w342", item.poster_path)}
+                                    />
+                                </View>
+                            )
+                        })}
+                    </ScrollView>
+                    {/* Popular */}
+                    <CategoryHeader title="Popular" className="font-poppins_semibold text-size_16 text-White px-space_36 py-space_20" />
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                        {popularShowsList.map((item: any, index: any) => {
+                            return (
+                                <View key={item.id}>
+                                    <SubMovieCard
+                                        shouldMarginatedAtEnd={true}
+                                        cardFunction={() => {
+                                            navigation.push("MovieDetails", { movieid: item.id });
+                                        }}
+                                        cardWidth={width / 3}
+                                        isFirst={index == 0 ? true : false}
+                                        isLast={index == popularShowsList.length - 1}
+                                        title={item.original_name}
+                                        imagePath={baseImagePath("w342", item.poster_path)}
+                                    />
+                                </View>
+                            )
+                        })}
+                    </ScrollView>
+                    {/* TopRated */}
+                    <CategoryHeader title="TopRated" className="font-poppins_semibold text-size_16 text-White px-space_36 py-space_20" />
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                        {topRatedList.map((item: any, index: any) => {
+                            return (
+                                <View key={item.id}>
+                                    <SubMovieCard
+                                        shouldMarginatedAtEnd={true}
+                                        cardFunction={() => {
+                                            navigation.push("MovieDetails", { movieid: item.id });
+                                        }}
+                                        cardWidth={width / 3}
+                                        isFirst={index == 0 ? true : false}
+                                        isLast={index == topRatedList.length - 1}
+                                        title={item.original_name}
                                         imagePath={baseImagePath("w342", item.poster_path)}
                                     />
                                 </View>
