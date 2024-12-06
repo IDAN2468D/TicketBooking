@@ -5,12 +5,15 @@ import CustomIcon from './CustomIcon';
 
 const AppHeader = (props: any) => {
     return (
-        <View className='flex flex-row-reverse items-center justify-between px-4'>
-            <TouchableOpacity className='h-[34px] w-[34px] p-1 items-center justify-center rounded-full bg-Orange' onPress={props.action}>
-                <CustomIcon name={props.name} className='text-White text-size_24' />
-            </TouchableOpacity>
+        <View className='flex flex-row-reverse items-center justify-between px-6'>
+            {props.showButton && (
+                <TouchableOpacity
+                    className='h-[34px] w-[34px] p-1 items-center justify-center rounded-full bg-Orange'
+                    onPress={props.action}>
+                    <CustomIcon name={props.name} className='text-White text-size_24' />
+                </TouchableOpacity>
+            )}
             <Text className='flex-1 font-poppins_medium text-size_20 text-center text-White'>{props.header}</Text>
-            <View className='h-[40px] w-[40px]'></View>
         </View>
     )
 }

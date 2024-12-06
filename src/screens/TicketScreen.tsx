@@ -1,24 +1,22 @@
-// TicketScreen.tsx
-import { ActivityIndicator, Image, ImageBackground, ScrollView, View, Text } from 'react-native';
 import React from 'react';
+import { ActivityIndicator, Image, ImageBackground, ScrollView, View, Text } from 'react-native';
 import { AppHeader } from '../components';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomIcon from '../components/CustomIcon';
-import useTicket from '../hooks/useFetchTicket'; // Import the custom hook
+import useTicket from '../hooks/useFetchTicket';
 
 const TicketScreen = ({ route, navigation }: any) => {
-    // Use the custom hook to fetch ticket data
     const { ticketData, loading } = useTicket(route.params);
 
     if (loading) {
-        return <ActivityIndicator size="large" color="#FFFFFF" />; // Loading indicator
+        return <ActivityIndicator size="large" color="#FFFFFF" />;
     }
 
     if (!ticketData) {
         return (
             <View className='flex flex-1 bg-Black'>
                 <View className='mx-[30px] my-14'>
-                    <AppHeader name="close" header="My Tickets" action={() => navigation.goBack()} />
+                    <AppHeader showButton={true} name="close" header="My Tickets" action={() => navigation.goBack()} />
                 </View>
             </View>
         );
@@ -26,11 +24,11 @@ const TicketScreen = ({ route, navigation }: any) => {
 
     return (
         <ScrollView className='flex bg-Black'>
-            <View className='mx-space_16 mt-[40px]'>
-                <AppHeader name="close" header="My Tickets" action={() => navigation.goBack()} />
+            <View className='mx-space_16 mt-[50px]'>
+                <AppHeader showButton={true} name="close" header="My Tickets" action={() => navigation.goBack()} />
             </View>
             {/* Ticket information */}
-            <View className='mt-space_32 justify-center'>
+            <View className='mt-space_28 justify-center'>
                 <ImageBackground
                     source={{ uri: ticketData.ticketImage }}
                     className='self-center w-[300px] aspect-[200/300] rounded-t-radius_25 overflow-hidden justify-end'
@@ -40,8 +38,8 @@ const TicketScreen = ({ route, navigation }: any) => {
                         style={{ height: "70%" }}
                         colors={["rgba(255,85,36,0)", "#FF5524"]}
                     />
-                    <View className='absolute bottom-[-40px] left-[-40px] h-[80px] w-[80px] rounded-[80px] bg-Black'/>
-                    <View className='absolute bottom-[-40px] right-[-40px] h-[80px] w-[80px] rounded-[80px] bg-Black'/>
+                    <View className='absolute bottom-[-40px] left-[-40px] h-[80px] w-[80px] rounded-[80px] bg-Black' />
+                    <View className='absolute bottom-[-40px] right-[-40px] h-[80px] w-[80px] rounded-[80px] bg-Black' />
                 </ImageBackground>
                 <View className='border-t-Black border-t-[3px] bg-Orange border-dashed w-[300px] self-center' />
                 <View className="w-[300px] bg-Orange items-center self-center py-space_20 rounded-b-radius_25">

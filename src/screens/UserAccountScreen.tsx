@@ -10,8 +10,8 @@ const UserAccountScreen = ({ navigation }: any) => {
     return (
         <View className="flex-1 bg-black">
             <StatusBar translucent backgroundColor={"transparent"} barStyle={"light-content"} />
-            <View className="mx-4 mt-[70px]">
-                <AppHeader name="close" header="My Profile" />
+            <View className="mt-[70px]">
+                <AppHeader header="My Profile" />
                 <View className=" mt-7 items-center">
                     <Image
                         source={{
@@ -23,15 +23,19 @@ const UserAccountScreen = ({ navigation }: any) => {
                 </View>
             </View>
             {/* כפתורי הפעולה */}
-            <View className="mx-5 mt-1">
+            <View className="mx-5 mt-16">
                 {ButtonText.map((button) => (
-                    <View key={button.id} className="mt-5">
+                    <View key={button.id}>
                         <ButtonProfile
                             text={button.text}
-                            subtext={button.subtext}
-                            subtext_2={button.subtext_2}
                             icon={button.icon}
-                            onPress={button.id === 'logout' ? confirmSignOut : undefined}
+                            onPress={() => {
+                                if (button.id === 'logout') {
+                                    confirmSignOut()
+                                } else if (button.id === 'offers') {
+                                    navigation.navigate('CinemaPlace');
+                                }
+                            }}
                         />
                     </View>
                 ))}

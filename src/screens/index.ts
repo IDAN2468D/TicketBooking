@@ -12,6 +12,7 @@ import FavoritesScreen from './FavoritesScreen';
 import FavoriteCard from '../components/FavorifeCard';
 import TrailerScreen from './TrailerScreen';
 import CastDetailsScreen from './CastDetailsScreen';
+import CinemaPlace from './CinemaPlace'
 
 export {
     MovieBookingScreen,
@@ -27,5 +28,6 @@ export {
     FavoritesScreen,
     FavoriteCard,
     CastDetailsScreen,
+    CinemaPlace,
     TrailerScreen
 }

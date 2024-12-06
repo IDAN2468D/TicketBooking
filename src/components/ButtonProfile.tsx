@@ -15,7 +15,6 @@ const ButtonProfile = (props: any) => {
                         <Text className='text-White text-size_12'>{props.subtext_2}</Text>
                     </View>
                 </View>
-                <CustomIcon name="arrow-right" className='text-White text-size_20' />
             </View>
             <View>
             </View>
