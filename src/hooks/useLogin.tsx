@@ -62,6 +62,15 @@ const validatePassword = (password: string): boolean => {
 function useLogin(navigation: any) {
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    useEffect(() => {
+        const unsubscribe = auth().onAuthStateChanged(user => {
+            if (user) {
+                navigation.navigate("Tab");
+            }
+        });
+        return unsubscribe;
+    }, [navigation]);
+
     const handleLogin = async () => {
         dispatch({ type: 'RESET_ERROR_MESSAGE' });
 
